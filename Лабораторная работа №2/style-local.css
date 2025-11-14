@@ -1,4 +1,3 @@
-
 body {
   margin: 0;
   padding: 0;
@@ -11,11 +10,6 @@ a {
   color: #fff;
   text-decoration: none;
 }
-a:hover {
-  color: #900;
-  text-decoration: underline;
-}
-
 .zen-wrapper {
   width: 737px;
   margin: 30px auto;
@@ -48,25 +42,94 @@ ol, ul {
 }
 ol li, ul li {
   margin: 5px 0;
-  list-style-type: none;
 }
 ol {
   background: #FAC46C url(graphics/about.gif) 100% 20px no-repeat;
 }
+table tr:nth-child(2) td:nth-child(1) ol {
+  list-style-type: none; 
+  counter-reset: personal-data-counter; 
+  padding-left: 0; 
+}
+table tr:nth-child(2) td:nth-child(1) ol li {
+  counter-increment: personal-data-counter; 
+  padding-left: 2em; 
+  text-indent: -2em; 
+}
+table tr:nth-child(2) td:nth-child(1) ol li::before {
+  content: counter(personal-data-counter) ". "; 
+  font-weight: bold; 
+}
+
+table tr:nth-child(2) td:nth-child(1) ol li:first-child {
+  counter-increment: none; 
+  list-style-type: none; 
+  padding-left: 0; 
+  text-indent: 0;
+}
+
+table tr:nth-child(2) td:nth-child(1) ol li:first-child::before {
+  content: none; 
+}
+
+table tr:nth-child(2) td:nth-child(3) ul {
+  list-style-type: disc; 
+  background: #FAC46C url(graphics/benefits.gif) 100% 20px no-repeat;
+  color: #000;
+}
+table tr:nth-child(2) td:nth-child(3) ul li:first-child {
+  list-style-type: none;
+}
+
+table tr:nth-child(4) td:nth-child(1) ul {
+  list-style-type: circle; /* Пустой круг (окружность) */
+}
+
+table tr:nth-child(4) td:nth-child(1) ul li:first-child {
+  list-style-type: none;
+}
+
+table tr:nth-child(4) td:nth-child(3) ol {
+  list-style-type: none
+  counter-reset: additional-info-counter; 
+  padding-left: 0;
+}
+table tr:nth-child(4) td:nth-child(3) ol li {
+  counter-increment: additional-info-counter; 
+  padding-left: 2.5em; 
+  text-indent: -2.5em;
+}
+table tr:nth-child(4) td:nth-child(3) ol li::before {
+  content: counter(additional-info-counter, upper-roman) ". "; 
+  font-weight: bold;
+}
+table tr:nth-child(4) td:nth-child(3) ol li:first-child {
+  counter-increment: none; 
+  list-style-type: none;
+  padding-left: 0;
+  text-indent: 0;
+}
+table tr:nth-child(4) td:nth-child(3) ol li:first-child::before {
+  content: none
+}
+svg {
+  margin: 10px 0;
+  border: 2px solid #B62814;
+}
+
+img[height="199"] {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
 ul + ul { 
   background: #537E53;
   color: #fff;
 }
 
-td:nth-child(3) ul {
-  background: #FAC46C url(graphics/benefits.gif) 100% 20px no-repeat;
-  color: #000;
-}
 
-svg {
-  margin: 10px 0;
-  border: 2px solid #B62814;
-}
+
 
 footer {
   color: #fff;
@@ -74,9 +137,7 @@ footer {
   background: #B62814;
   margin-top: 20px;
 }
-
-img[height="199"] {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
+a:hover {
+  color: #900;
+  text-decoration: underline;
 }
