@@ -1,0 +1,143 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #545D64;
+  color: #000;
+  font: 90% Verdana, Arial, sans-serif;
+  text-align: center;
+}
+a {
+  color: #fff;
+  text-decoration: none;
+}
+.zen-wrapper {
+  width: 737px;
+  margin: 30px auto;
+  background: transparent url(graphics/zengarden.jpg) top left;
+  border-left: 1px solid #545D64;
+  padding: 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  background-image: url(фон.jpg);
+}
+
+h1, h2 {
+  color: #fff;
+  background: #B62814;
+  padding: 8px 0;
+  margin: 0;
+}
+
+ol, ul {
+  background: #B5BB7D url(graphics/enlightenment_default.gif) 100% 3em no-repeat;
+  padding: 20px;
+  margin: 10px;
+  color: #000;
+  width: auto;
+  display: block;
+}
+ol li, ul li {
+  margin: 5px 0;
+}
+ol {
+  background: #FAC46C url(graphics/about.gif) 100% 20px no-repeat;
+}
+table tr:nth-child(2) td:nth-child(1) ol {
+  list-style-type: none; 
+  counter-reset: personal-data-counter; 
+  padding-left: 0; 
+}
+table tr:nth-child(2) td:nth-child(1) ol li {
+  counter-increment: personal-data-counter; 
+  padding-left: 2em; 
+  text-indent: -2em; 
+}
+table tr:nth-child(2) td:nth-child(1) ol li::before {
+  content: counter(personal-data-counter) ". "; 
+  font-weight: bold; 
+}
+
+table tr:nth-child(2) td:nth-child(1) ol li:first-child {
+  counter-increment: none; 
+  list-style-type: none; 
+  padding-left: 0; 
+  text-indent: 0;
+}
+
+table tr:nth-child(2) td:nth-child(1) ol li:first-child::before {
+  content: none; 
+}
+
+table tr:nth-child(2) td:nth-child(3) ul {
+  list-style-type: disc; 
+  background: #FAC46C url(graphics/benefits.gif) 100% 20px no-repeat;
+  color: #000;
+}
+table tr:nth-child(2) td:nth-child(3) ul li:first-child {
+  list-style-type: none;
+}
+
+table tr:nth-child(4) td:nth-child(1) ul {
+  list-style-type: circle; /* Пустой круг (окружность) */
+}
+
+table tr:nth-child(4) td:nth-child(1) ul li:first-child {
+  list-style-type: none;
+}
+
+table tr:nth-child(4) td:nth-child(3) ol {
+  list-style-type: none
+  counter-reset: additional-info-counter; 
+  padding-left: 0;
+}
+table tr:nth-child(4) td:nth-child(3) ol li {
+  counter-increment: additional-info-counter; 
+  padding-left: 2.5em; 
+  text-indent: -2.5em;
+}
+table tr:nth-child(4) td:nth-child(3) ol li::before {
+  content: counter(additional-info-counter, upper-roman) ". "; 
+  font-weight: bold;
+}
+table tr:nth-child(4) td:nth-child(3) ol li:first-child {
+  counter-increment: none; 
+  list-style-type: none;
+  padding-left: 0;
+  text-indent: 0;
+}
+table tr:nth-child(4) td:nth-child(3) ol li:first-child::before {
+  content: none
+}
+svg {
+  margin: 10px 0;
+  border: 2px solid #B62814;
+}
+
+img[height="199"] {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+ul + ul { 
+  background: #537E53;
+  color: #fff;
+}
+
+
+
+
+footer {
+  color: #fff;
+  padding: 15px;
+  background: #B62814;
+  margin-top: 20px;
+}
+a:hover {
+  color: #900;
+  text-decoration: underline;
+}
