@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Онлайн-магазин: Вариант 15 (v-bind)</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <h2>Выберите категорию товаров:</h2>
+
+    <div class="dropdown-container" @click="toggleDropdown">
+        <div class="dropdown-header">
+            <span>{{ selectedCategory || 'Категории товаров' }}</span>
+            <span class="dropdown-arrow" :class="{ rotated: isDropdownOpen }"></span>
+        </div>
+        <!-- Используем v-if для условного отображения select -->
+        <select v-if="isDropdownOpen" v-bind:size="numberOfOptions" v-model="selectedCategory">
+            <option disabled value="">Выберите категорию</option>
+            <option v-for="(category, index) in productCategories" :key="index" :value="category">
+                {{ category }}
+            </option>
+        </select>
+    </div>
+</div>
+
+<script>
+    const { createApp, ref } = Vue;
+
+    createApp({
+        setup() {
+            const productCategories = ref([
+                'Смартфоны', 'Ноутбуки', 'Телевизоры', 'Наушники', 'Умные часы',
+                'Планшеты', 'Игровые консоли', 'Аксессуары', 'Бытовая техника', 'Фотоаппараты',
+                'Видеокамеры', 'Аудиотехника', 'Компьютерные комплектующие', 'Мониторы', 'Периферия'
+            ]);
+
+            const numberOfOptions = ref(15); // Количество видимых опций
+            const isDropdownOpen = ref(false); // Состояние раскрытия списка
+            const selectedCategory = ref(''); // Выбранная категория
+
+            const toggleDropdown = () => {
+                isDropdownOpen.value = !isDropdownOpen.value;
+            };
+
+            return {
+                productCategories,
+                numberOfOptions,
+                isDropdownOpen,
+                selectedCategory,
+                toggleDropdown
+            };
+        }
+    }).mount('#app');
+</script>
+
+</body>
+</html>

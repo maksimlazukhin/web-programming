@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Онлайн-магазин: Вариант 15 (v-model)</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+   
+</head>
+<body>
+
+<div id="app">
+    <h2>Введите номер заказа и нажмите Ctrl+P для печати:</h2>
+    <input type="text" v-model="orderId" @focus="handleFocus" @keydown.ctrl.p.prevent="handleCtrlP">
+    <p class="status-message">Текущее состояние: {{ statusMessage }}</p>
+</div>
+
+<script>
+    const { createApp, ref } = Vue;
+
+    createApp({
+        setup() {
+            const orderId = ref(''); // Связываем с полем ввода номера заказа
+            const statusMessage = ref('Ожидание ввода номера заказа...');
+
+            const handleFocus = () => {
+                statusMessage.value = 'Фокус на поле ввода номера заказа.';
+            };
+
+            const handleCtrlP = () => {
+                // Изменяем текст в поле ввода согласно заданию
+                orderId.value = 'Заказ #' + (orderId.value || 'XXXXX') + ' распечатан';
+                statusMessage.value = 'Подготовка к печати заказа...';
+
+                const confirmPrint = confirm('Вывести диалоговое окно печати заказа?');
+
+                if (confirmPrint) {
+                    window.print(); // Вызываем стандартное окно печати браузера
+                    statusMessage.value = 'Печать заказа инициирована.';
+                } else {
+                    // Изменяем текст в поле ввода и статус при отказе
+                    orderId.value = 'Печать заказа отменена.';
+                    statusMessage.value = 'Печать заказа отменена оператором.';
+                }
+            };
+
+            return {
+                orderId,
+                statusMessage,
+                handleFocus,
+                handleCtrlP
+            };
+        }
+    }).mount('#app');
+</script>
+
+</body>
+</html>
