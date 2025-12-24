@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>v-for — Вариант 15 — Фамилия И.О.</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .controls { margin: 15px 0; }
+    input { width: 80px; margin: 0 5px; }
+    svg { border: 1px solid #999; background: white; }
+  </style>
+</head>
+<body>
+  <h2>Циклическая отрисовка — Вариант 15 — Фамилия И.О.</h2>
+  <div id="app">
+    <div class="controls">
+      Ширина: <input type="number" v-model.number="width" min="200" max="1000">  
+      Высота: <input type="number" v-model.number="height" min="100" max="600">
+    </div>
+    <svg :width="width" :height="height">
+      <text
+        v-for="(label, i) in labels"
+        :key="i"
+        :x="(i % cols) * stepX + 10"
+        :y="Math.floor(i / cols) * stepY + 20"
+        font-size="14px"
+        fill="#333"
+      >
+        {{ label }}
+      </text>
+    </svg>
+  </div>
+  <script>
+    const { createApp, ref, computed } = Vue;
+    createApp({
+      setup() {
+        const width = ref(500);
+        const height = ref(300);
+        const stepX = 50;
+        const stepY = 30;
+
+        const cols = computed(() => Math.floor((width.value - 20) / stepX));
+        const rows = computed(() => Math.floor((height.value - 20) / stepY));
+        const total = computed(() => cols.value * rows.value);
+
+        const labels = computed(() => {
+          const arr = [];
+          for (let i = 0; i < total.value; i++) {
+            const val = (Math.random() * 18 - 9).toFixed(1); // от -9.0 до +9.0
+            arr.push(val);
+          }
+          return arr;
+        });
+
+        return { width, height, labels, cols, stepX, stepY };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

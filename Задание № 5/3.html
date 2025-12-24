@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title> Вариант 15</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+
+<h2>Наблюдатели (запрет кириллицы) — Вариант 15</h2>
+
+<div id="app">
+  <p>Введите текст (разрешена только латиница):</p>
+  <input type="text" v-model="userInput" :readonly="blocked">
+  <p>Попыток ввода кириллицы: {{ attempts }} / 3</p>
+  <p v-if="blocked">Ввод заблокирован.</p>
+</div>
+
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    userInput: '',
+    attempts: 0,
+    blocked: false
+  },
+  watch: {
+    userInput: function (newValue) {
+      if (this.blocked) {
+        this.userInput = '';
+        return;
+      }
+
+      // Проверка на кириллицу
+      const cyrillicRegex = /[а-яА-ЯёЁ]/g;
+
+      if (cyrillicRegex.test(newValue)) {
+        alert('Обнаружена кириллица! Попытка № ' + (this.attempts + 1));
+        this.attempts++;
+
+        // Удаляем кириллицу
+        this.userInput = newValue.replace(cyrillicRegex, '');
+
+        // Блокировка после 3 попыток
+        if (this.attempts >= 3) {
+          this.blocked = true;
+          this.userInput = '';
+        }
+      }
+    }
+  }
+});
+</script>
+
+</body>
+</html>
