@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Витки ЖЦ — Вариант 15 — Фамилия И.О.</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <style>body{font-family:Arial,sans-serif;margin:20px;}</style>
+</head>
+<body>
+  <h2>Витки жизненного цикла — Вариант 15 — Фамилия И.О.</h2>
+  <div id="app">
+    <p v-if="alive">Приложение активно. Проверяются хуки...</p>
+    <p v-else style="color:red;">Экземпляр уничтожен: вы не угадали число за 3 попытки!</p>
+    <div class="log" v-if="logs.length">
+      <h4>Журнал:</h4>
+      <ul><li v-for="msg in logs" :key="msg">{{ msg }}</li></ul>
+    </div>
+  </div>
+  <script>
+    function checkGuess(hookName) {
+      const secret = Math.floor(Math.random() * 3) + 1;
+      let attempts = 0;
+      while (attempts < 3) {
+        const guess = prompt(`[${hookName}] Угадайте число от 1 до 3 (попытка ${attempts + 1}/3):`);
+        if (guess === null) return false;
+        const num = parseInt(guess.trim());
+        if (num === secret) {
+          console.log(`[${hookName}] Угадано с ${attempts + 1} попытки!`);
+          return true;
+        }
+        attempts++;
+      }
+      alert(`[${hookName}] Не угадано! Экземпляр будет уничтожён.`);
+      return false;
+    }
+
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          alive: true,
+          logs: []
+        };
+      },
+      beforeCreate() {
+        if (!checkGuess('beforeCreate')) this.destroySelf();
+        else this.logs.push('beforeCreate — пройден');
+      },
+      created() {
+        if (!checkGuess('created')) this.destroySelf();
+        else this.logs.push('created — пройден');
+      },
+      beforeMount() {
+        if (!checkGuess('beforeMount')) this.destroySelf();
+        else this.logs.push('beforeMount — пройден');
+      },
+      mounted() {
+        if (!checkGuess('mounted')) this.destroySelf();
+        else this.logs.push('mounted — пройден');
+      },
+      beforeUpdate() {
+        if (!checkGuess('beforeUpdate')) this.destroySelf();
+        else this.logs.push('beforeUpdate — пройден');
+      },
+      updated() {
+        if (!checkGuess('updated')) this.destroySelf();
+        else this.logs.push('updated — пройден');
+      },
+      methods: {
+        destroySelf() {
+          this.alive = false;
+          // Прекращаем реактивность, не вызывая beforeDestroy/destroyed, так как они не поддерживают prompt/alert
+        }
+      }
+    });
+  </script>
+</body>
+</html>
